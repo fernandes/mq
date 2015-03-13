@@ -43,6 +43,9 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'rabbit_feed'
+gem 'hutch'
+gem 'sinatra'
 
 gem 'country_select'
 gem 'devise'
@@ -59,12 +62,21 @@ group :development do
   gem 'guard-bundler', require: false
   gem 'guard-livereload', require: false
   gem 'guard-rspec', require: false
-  gem 'jazz_fingers'
+  gem 'guard-sidekiq', require: false
   gem 'letter_opener'
   gem 'listen', '~> 2.7.12'
   gem 'quiet_assets'
   gem 'spring-commands-rspec'
   gem 'thin'
+  # pry stuff
+  gem 'pry', '~> 0.10'
+  gem 'pry-rails', '~> 0.3'
+  gem 'pry-doc', '~> 0.6'
+  gem 'pry-git', '~> 0.2'
+  gem 'pry-remote', '>= 0.1.7'
+  gem 'pry-byebug', '1.3.3'
+  gem 'hirb', '~> 0.7'
+  gem 'awesome_print', '~> 1.6.1'
 end
 
 group :development, :test do

@@ -37,7 +37,10 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.7)
+    amq-protocol (1.9.2)
     arel (6.0.0)
+    avro (1.7.7)
+      multi_json
     awesome_print (1.6.1)
     bcrypt (3.1.10)
     better_errors (2.1.1)
@@ -47,6 +50,8 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    bunny (1.7.0)
+      amq-protocol (>= 1.9.2)
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
@@ -56,6 +61,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrot-top (0.0.7)
+      json
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
@@ -68,8 +75,6 @@ GEM
     coffee-script-source (1.9.1)
     columnize (0.9.0)
     connection_pool (2.1.2)
-    coolline (0.5.0)
-      unicode_utils (~> 1.4)
     countries (0.9.3)
       currencies (~> 0.4.2)
     country_select (2.1.1)
@@ -131,6 +136,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    guard-sidekiq (0.1.0)
+      guard (>= 2)
+      sidekiq
     haml (4.0.6)
       tilt
     haml-rails (0.9.0)
@@ -148,18 +156,11 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     http_parser.rb (0.6.0)
+    hutch (0.14.0)
+      bunny (>= 1.7.0)
+      carrot-top (~> 0.0.7)
+      multi_json (~> 1.5)
     i18n (0.7.0)
-    jazz_fingers (1.0.0)
-      awesome_print (~> 1.6.1)
-      hirb (~> 0.7)
-      pry (~> 0.10)
-      pry-byebug (= 1.3.3)
-      pry-coolline (~> 0.2)
-      pry-doc (~> 0.6)
-      pry-git (~> 0.2)
-      pry-rails (~> 0.3)
-      pry-remote (>= 0.1.7)
-      railties (>= 3.0, < 5.0)
     jbuilder (2.2.11)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -193,6 +194,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    pidfile (0.3.0)
     posix-spawn (0.3.10)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -201,8 +203,6 @@ GEM
     pry-byebug (1.3.3)
       byebug (~> 2.7)
       pry (~> 0.10)
-    pry-coolline (0.2.5)
-      coolline (~> 0.5)
     pry-doc (0.6.0)
       pry (~> 0.9)
       yard (~> 0.8)
@@ -217,7 +217,16 @@ GEM
       slop (~> 3.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
+    rabbit_feed (2.1.0)
+      activemodel (>= 3.2.0, < 5.0.0)
+      activesupport (>= 3.2.0, < 5.0.0)
+      avro (>= 1.5.4, < 1.8.0)
+      bunny (>= 1.1.9, < 1.8.0)
+      connection_pool (< 2.2.0)
+      pidfile
     rack (1.6.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -300,6 +309,10 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slop (3.6.0)
     spring (1.3.3)
     spring-commands-rspec (1.0.4)
@@ -333,7 +346,6 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
     web-console (2.1.2)
@@ -349,6 +361,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print (~> 1.6.1)
   better_errors
   binding_of_caller
   byebug
@@ -362,14 +375,23 @@ DEPENDENCIES
   guard-livereload
   guard-rails
   guard-rspec
+  guard-sidekiq
   haml-rails
-  jazz_fingers
+  hirb (~> 0.7)
+  hutch
   jbuilder (~> 2.0)
   jquery-rails
   json
   letter_opener
   listen (~> 2.7.12)
+  pry (~> 0.10)
+  pry-byebug (= 1.3.3)
+  pry-doc (~> 0.6)
+  pry-git (~> 0.2)
+  pry-rails (~> 0.3)
+  pry-remote (>= 0.1.7)
   quiet_assets
+  rabbit_feed
   rails (= 4.2.0)
   responders
   rspec-rails
@@ -378,6 +400,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   simple_form
+  sinatra
   spring
   spring-commands-rspec
   sqlite3
