@@ -7,7 +7,7 @@ Simple message queue producer/consumer rails app, using:
 
 ## How to reproduce
 
-1. Create a config/rabbit_feed.yml
+Step 1. Create a config/rabbit_feed.yml
 
 ```yaml
 development:
@@ -17,7 +17,7 @@ development:
   application: beavers
 ```
 
-2. Create a config/initializers/rabbit_feed.rb
+Step 2. Create a config/initializers/rabbit_feed.rb
 
 Here you define all your events, and how to process them.
 
@@ -63,7 +63,7 @@ RabbitFeed.instance_eval do
 end
 ```
 
-3. Create a Procfile to run the consumers
+Step 3. Create a Procfile to run the consumers
 
 ```yaml
 web:  bundle exec rails s -p $PORT
